@@ -26,7 +26,7 @@ data = dict()
 data['hello'] = 'world'
 
 gcm.send(payload={});
-	```
+```
 
 ### Listen for Incoming Messages ###
 
