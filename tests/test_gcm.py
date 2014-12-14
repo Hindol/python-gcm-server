@@ -1,12 +1,8 @@
 __author__ = 'hadhya'
 
-from gcm import HttpMessage, GCMClient
-import os
-
-GCM_API_KEY = os.getenv('GCM_API_KEY', '')
-GCM_SENDER_ID = os.getenv('GCM_SENDER_ID', '')
-
-REGISTRATION_IDS = ['APA91bHxS-Os4gbKC0jyMEoz_xxJGieV6DhINeEoSIVJ0tzE4cRg7Ov8k9lJuhKJRtbY1EmwwOhXuIf8uj9WxIVnp-BajEv_ghJe348MTt396maff5QenTtIAImKmfeaCzagg-i19BEJdXvWhO0WwgSVOnrdSZsivsr9pUv33F2mwoMWHdf467w']
+from gcm import HttpMessage, GcmClient
+import json
+from config import CONFIG
 
 # A common payload used by many of the tests
 def get_payload():
@@ -15,7 +11,7 @@ def get_payload():
     return payload
 
 def get_gcm_client():
-    return GCMClient(GCM_API_KEY, GCM_SENDER_ID)
+    return GcmClient(CONFIG['GCM_API_KEY'])
 
 class TestHttpMessage:
     def test_wrap_unwrap(self):
@@ -25,9 +21,15 @@ class TestHttpMessage:
 
 class TestGcmClient:
     def test_send(self):
-        payload = {'registration_ids': REGISTRATION_IDS, 'data': {'hello': 'world'}}
-        print 'API key is ' + GCM_API_KEY
+        payload = {'registration_ids': CONFIG['REGISTRATION_IDS'], 'data': {'hello': 'world'}}
         gcm = get_gcm_client()
-        res = gcm.send(0, payload)
-        print res
-        assert 1
+        print gcm.https_header
+        res = json.loads(gcm.send(payload))
+        assert res['failure'] == 0
+
+    def test_listen(self):
+        gcm = get_gcm_client()
+        gcm.listen(config.GCM_SENDER_ID, self.on_message)
+
+    def on_message(self, message):
+        print message
