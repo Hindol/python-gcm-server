@@ -29,7 +29,7 @@ class TestGcmClient:
 
     def test_listen(self):
         gcm = get_gcm_client()
-        gcm.listen(config.GCM_SENDER_ID, self.on_message)
+        gcm.listen(CONFIG['GCM_SENDER_ID'], self.on_message)
 
     def on_message(self, message):
         print message
