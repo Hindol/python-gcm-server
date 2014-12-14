@@ -11,17 +11,31 @@ Installation
 Usage
 -----
 
+### Send to Android Device ###
+
 ```python
 from gcm import GCMClient
 
 API_KEY = 'Your-API-key'
 GCM_SENDER_ID = 'Your-Sender-ID'
 
-gcm = GCMCLient(API_KEY)
+gcm = GcmCLient(API_KEY)
 msg_id = 0;
 id = msg_id++
 data = dict()
 data['hello'] = 'world'
 
-gcm.send(sender_id=GCM_SENDER_ID + "@gcm.googleapis.com", msg_id=id, ttl=600, data);
+gcm.send(payload={});
+	```
+
+### Listen for Incoming Messages ###
+
+```python
+class Server:
+	def __init__(self):
+		gcm = GcmClient(API_KEY)
+		gcm.listen(GCM_SENDER_ID, self.message_callback)
+
+	def message_callback(self, message):
+		# Do something with message
 ```
