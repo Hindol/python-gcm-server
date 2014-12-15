@@ -20,8 +20,8 @@ API_KEY = 'Your-API-key'
 GCM_SENDER_ID = 'Your-Sender-ID'
 
 gcm = GcmCLient(API_KEY)
-data = dict()
-data['hello'] = 'world'
+payload = dict()
+payload['hello'] = 'world'
 
 gcm.send(payload={});
 ```
