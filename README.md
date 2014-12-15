@@ -20,8 +20,6 @@ API_KEY = 'Your-API-key'
 GCM_SENDER_ID = 'Your-Sender-ID'
 
 gcm = GcmCLient(API_KEY)
-msg_id = 0;
-id = msg_id++
 data = dict()
 data['hello'] = 'world'
 
