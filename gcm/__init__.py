@@ -1,6 +1,6 @@
 __author__ = 'hadhya'
 
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from string import Template
 import urllib2
 import json
@@ -15,6 +15,7 @@ HTTPS_HEADER = {
     'Authorization': Template('key=$api_key')
 }
 
+
 class Message:
     """
     A message class to ease the construction and parsing of GCM payload.
@@ -27,6 +28,7 @@ class Message:
     def get_payload(self):
         return self.payload
 
+
 class XmppMessage(Message):
     """
     Models the XMPP message type for GCM.
@@ -34,6 +36,7 @@ class XmppMessage(Message):
 
     def __init__(self, payload):
         Message.__init__(self, payload)
+
 
 class HttpMessage(Message):
     """
@@ -43,9 +46,11 @@ class HttpMessage(Message):
     def __init__(self, payload):
         Message.__init__(self, payload)
 
+
 class _GcmXmppClient(sleekxmpp.ClientXMPP):
     def __init__(self, api_key, sender_id):
         super(_GcmXmppClient, self).__init__(sender_id, api_key)
+
 
 class GcmClient:
     def __init__(self, api_key):
