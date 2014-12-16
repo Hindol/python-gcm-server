@@ -16,10 +16,8 @@ HTTPS_HEADER = {
 }
 
 
-class Message:
-    """
-    A message class to ease the construction and parsing of GCM payload.
-    """
+class _Message:
+    """A message class to ease the construction and parsing of GCM payload."""
     __metaclass__ = ABCMeta
 
     def __init__(self, payload):
@@ -29,22 +27,18 @@ class Message:
         return self.payload
 
 
-class XmppMessage(Message):
-    """
-    Models the XMPP message type for GCM.
-    """
+class XmppMessage(_Message):
+    """Models the XMPP message type for GCM."""
 
     def __init__(self, payload):
-        Message.__init__(self, payload)
+        _Message.__init__(self, payload)
 
 
-class HttpMessage(Message):
-    """
-    Models the HTTP message type for GCM.
-    """
+class HttpMessage(_Message):
+    """Models the HTTP message type for GCM."""
 
     def __init__(self, payload):
-        Message.__init__(self, payload)
+        _Message.__init__(self, payload)
 
 
 class _GcmXmppClient(sleekxmpp.ClientXMPP):
@@ -69,7 +63,6 @@ class GcmClient:
         return res
 
     def listen(self, sender_id, message_callback):
-        print 'Hello Gandu'
         # If sender id is given, also instantiate an xmpp client
         if not sender_id:
             logging.error('Sender ID not specified. Cannot start XMPP listen server.')
@@ -87,4 +80,3 @@ class GcmClient:
             self.xmpp_client.process()
         else:
             logging.error('Could not connect to XMPP server.')
-            return
