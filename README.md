@@ -6,7 +6,7 @@ A well documented idiomatic python implementation of a Google Cloud Messaging se
 Installation
 ------------
 
-    pip install gcm-server
+    pip install gcm-server (! Not yet active)
 
 Usage
 -----
@@ -21,9 +21,10 @@ GCM_SENDER_ID = 'Your-Sender-ID'
 
 gcm = GcmCLient(API_KEY)
 payload = dict()
+payload['registration_ids'] = ['1', '2', '3', ...]
 payload['hello'] = 'world'
 
-gcm.send(payload={});
+gcm.send(payload);
 ```
 
 ### Listen for Incoming Messages ###
